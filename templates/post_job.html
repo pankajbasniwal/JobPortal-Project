@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post a Job - JobPortal</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>JobPortal</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/jobs/">Jobs</a>
+        <a href="/recruiter-dashboard/">Dashboard</a>
+    </div>
+</nav>
+
+<div class="register-container">
+
+    <h1>Post a New Job</h1>
+    <p>Find the right candidate for your company.</p>
+
+    <form id="jobForm">
+
+        <label>Job Title</label>
+        <input type="text" id="title" required>
+
+        <label>Job Description</label>
+        <textarea id="description" required></textarea>
+
+        <label>Required Skills</label>
+        <textarea id="skills_required" required></textarea>
+
+        <label>Location</label>
+        <input type="text" id="location" required>
+
+        <label>Salary</label>
+        <input type="number" id="salary" step="0.01">
+
+        <label>Job Type</label>
+        <select id="job_type">
+            <option value="Full Time">Full Time</option>
+            <option value="Part Time">Part Time</option>
+            <option value="Internship">Internship</option>
+        </select>
+
+        <label>Application Deadline</label>
+        <input type="date" id="deadline">
+
+        <button type="submit">Post Job</button>
+
+    </form>
+
+    <p id="message"></p>
+
+</div>
+
+<script src="/static/js/post_job.js"></script>
+
+</body>
+</html>

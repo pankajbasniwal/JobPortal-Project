@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard - JobPortal</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <nav>
+        <h2>JobPortal</h2>
+        <div>
+            <a href="/">Home</a>
+            <a href="/jobs/">Jobs</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+
+        <h1>Student Dashboard</h1>
+
+        <h3>Welcome, <span id="username"></span>!</h3>
+
+        <p>Manage your job applications here.</p>
+
+        <div class="dashboard-card">
+            <h2>My Applications</h2>
+            <div id="applications">
+                Loading applications...
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/js/student-dashboard.js"></script>
+
+</body>
+</html>
