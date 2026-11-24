@@ -1,27 +1,419 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>JobPortal - Find Your Dream Job</title>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f8faff;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h2 {
+            color: #4f46e5;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        nav div {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4f46e5;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 580px;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff, #f5f3ff);
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: white;
+            color: #4f46e5;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.2;
+            max-width: 850px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #5b50e6;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 650px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        /* Buttons */
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(79,70,229,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 22px rgba(79,70,229,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4f46e5;
+            border: 1px solid #c7d2fe;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: #eef2ff;
+        }
+
+        /* Features */
+        .features {
+            max-width: 1150px;
+            margin: 80px auto;
+            padding: 0 25px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 15px;
+            border: 1px solid #e8eaf2;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(79,70,229,0.1);
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 19px;
+            margin-bottom: 12px;
+            color: #334155;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #64748b;
+        }
+
+        /* CTA Section */
+        .cta {
+            margin: 70px auto;
+            max-width: 1100px;
+            padding: 55px 25px;
+            border-radius: 18px;
+            text-align: center;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #e0e7ff;
+            margin-bottom: 25px;
+        }
+
+        .cta .btn {
+            background: white;
+            color: #4f46e5;
+            box-shadow: none;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 28px 15px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 750px) {
+            nav {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            nav div {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                min-height: 480px;
+                padding: 70px 20px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .cta {
+                margin: 50px 20px;
+            }
+
+            .cta h2 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
+    <!-- Navigation Bar -->
     <nav>
+
         <h2>JobPortal</h2>
+
         <div>
             <a href="/">Home</a>
             <a href="/jobs/">Jobs</a>
             <a href="/login/">Login</a>
             <a href="/register/">Register</a>
         </div>
+
     </nav>
 
+
+    <!-- Hero Section -->
     <section class="hero">
-        <h1>Find Your Dream Job</h1>
-        <p>Discover opportunities and start your career with JobPortal.</p>
-        <a href="/jobs/" class="btn">Explore Jobs</a>
+
+        <div class="hero-tag">
+            🚀 YOUR CAREER STARTS HERE
+        </div>
+
+        <h1>
+            Find Your <span>Dream Job</span>
+            & Build Your Future
+        </h1>
+
+        <p>
+            Discover exciting career opportunities, connect with top
+            companies, and take the next step towards your professional journey
+            with JobPortal.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/jobs/" class="btn">
+                Explore Jobs →
+            </a>
+
+            <a href="/register/" class="btn btn-secondary">
+                Create Account
+            </a>
+
+        </div>
+
     </section>
+
+
+    <!-- Features Section -->
+    <section class="features">
+
+        <h2 class="section-title">
+            Why Choose JobPortal?
+        </h2>
+
+        <p class="section-subtitle">
+            Everything you need to start and grow your career.
+        </p>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">💼</div>
+
+                <h3>Find Opportunities</h3>
+
+                <p>
+                    Explore different job opportunities and discover
+                    positions that match your skills and interests.
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🎯</div>
+
+                <h3>Easy Applications</h3>
+
+                <p>
+                    Apply for jobs easily and manage your applications
+                    through one convenient platform.
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🏢</div>
+
+                <h3>Connect with Recruiters</h3>
+
+                <p>
+                    Connect with companies and recruiters to explore
+                    new career possibilities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Call To Action -->
+    <section class="cta">
+
+        <h2>Ready to Start Your Career?</h2>
+
+        <p>
+            Create your free account and explore exciting job opportunities today.
+        </p>
+
+        <a href="/register/" class="btn">
+            Get Started Now →
+        </a>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 JobPortal. All Rights Reserved.
+        </p>
+
+        <p style="margin-top: 8px;">
+            Connecting Talent With Opportunities.
+        </p>
+
+    </footer>
 
 </body>
 </html>

@@ -1,14 +1,198 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post a Job - JobPortal</title>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f3f5fb;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        nav {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        nav h2 {
+            color: #4f46e5;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        nav div {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4f46e5;
+        }
+
+        /* Main Background */
+        .page-container {
+            min-height: 100vh;
+            padding: 55px 20px;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        /* Form Card */
+        .register-container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 40px 45px;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-header .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .form-header h1 {
+            font-size: 30px;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #dbe1ea;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+            background: #fbfcff;
+            color: #334155;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(79,70,229,0.3);
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-weight: 600;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav div {
+                gap: 15px;
+            }
+
+            .register-container {
+                padding: 28px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
 <nav>
     <h2>JobPortal</h2>
+
     <div>
         <a href="/">Home</a>
         <a href="/jobs/">Jobs</a>
@@ -16,46 +200,85 @@
     </div>
 </nav>
 
-<div class="register-container">
+<div class="page-container">
 
-    <h1>Post a New Job</h1>
-    <p>Find the right candidate for your company.</p>
+    <div class="register-container">
 
-    <form id="jobForm">
+        <div class="form-header">
+            <div class="icon">💼</div>
+            <h1>Post a New Job</h1>
+            <p>Find the perfect candidate for your company.</p>
+        </div>
 
-        <label>Job Title</label>
-        <input type="text" id="title" required>
+        <form id="jobForm">
 
-        <label>Job Description</label>
-        <textarea id="description" required></textarea>
+            <div class="form-group">
+                <label>Job Title <span class="required">*</span></label>
+                <input type="text" id="title"
+                       placeholder="e.g. Python Developer" required>
+            </div>
 
-        <label>Company ID</label>
-        <input type="text" id="company" required>
+            <div class="form-group">
+                <label>Job Description <span class="required">*</span></label>
+                <textarea id="description"
+                    placeholder="Describe the job responsibilities and requirements..."
+                    required></textarea>
+            </div>
 
-        <label>Required Skills</label>
-        <textarea id="skills_required" required></textarea>
+            <div class="form-group">
+                <label>Company ID <span class="required">*</span></label>
+                <input type="text" id="company"
+                       placeholder="Enter your company ID" required>
+            </div>
 
-        <label>Location</label>
-        <input type="text" id="location" required>
+            <div class="form-group">
+                <label>Required Skills <span class="required">*</span></label>
+                <textarea id="skills_required"
+                    placeholder="e.g. Python, Django, HTML, CSS, SQL"
+                    required></textarea>
+            </div>
 
-        <label>Salary</label>
-        <input type="number" id="salary" step="0.01">
+            <div class="form-row">
 
-        <label>Job Type</label>
-        <select id="job_type">
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
-            <option value="Internship">Internship</option>
-        </select>
+                <div class="form-group">
+                    <label>Location <span class="required">*</span></label>
+                    <input type="text" id="location"
+                           placeholder="e.g. Mumbai" required>
+                </div>
 
-        <label>Application Deadline</label>
-        <input type="date" id="deadline">
+                <div class="form-group">
+                    <label>Salary (₹)</label>
+                    <input type="number" id="salary"
+                           placeholder="e.g. 30000" step="0.01">
+                </div>
 
-        <button type="submit">Post Job</button>
+            </div>
 
-    </form>
+            <div class="form-row">
 
-    <p id="message"></p>
+                <div class="form-group">
+                    <label>Job Type</label>
+                    <select id="job_type">
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Application Deadline</label>
+                    <input type="date" id="deadline">
+                </div>
+
+            </div>
+
+            <button type="submit">🚀 Publish Job</button>
+
+        </form>
+
+        <p id="message"></p>
+
+    </div>
 
 </div>
 

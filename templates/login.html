@@ -1,46 +1,355 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login - JobPortal</title>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f3f5fb;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        nav h2 {
+            color: #4f46e5;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        nav div {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4f46e5;
+        }
+
+        /* Page Background */
+        .page-container {
+            min-height: calc(100vh - 70px);
+            padding: 55px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        /* Login Card */
+        .register-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 42px;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        /* Header */
+        .form-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #eef2ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+        }
+
+        .form-header h1 {
+            font-size: 29px;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #dbe1ea;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+            background: #fbfcff;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        }
+
+        /* Password Toggle */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #4f46e5;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Login Button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(79,70,229,0.3);
+        }
+
+        /* Message */
+        #message {
+            text-align: center;
+            margin-top: 18px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Register Link */
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .register-container {
+                padding: 30px 23px;
+            }
+
+            .form-header h1 {
+                font-size: 25px;
+            }
+        }
+
+    </style>
+
 </head>
+
 <body>
 
+    <!-- Navbar -->
     <nav>
+
         <h2>JobPortal</h2>
+
         <div>
             <a href="/">Home</a>
             <a href="/register/">Register</a>
         </div>
+
     </nav>
 
-    <div class="register-container">
 
-        <h1>Welcome Back!</h1>
-        <p>Login to your JobPortal account.</p>
+    <!-- Login Page -->
+    <div class="page-container">
 
-        <form id="loginForm">
+        <div class="register-container">
 
-            <label>Username</label>
-            <input type="text" id="username" required>
+            <!-- Login Header -->
+            <div class="form-header">
 
-            <label>Password</label>
-            <input type="password" id="password" required>
+                <div class="login-icon">
+                    👋
+                </div>
 
-            <button type="submit">Login</button>
+                <h1>Welcome Back!</h1>
 
-        </form>
+                <p>Login to your JobPortal account.</p>
 
-        <p id="message"></p>
+            </div>
 
-        <p>
-            Don't have an account?
-            <a href="/register/">Register here</a>
-        </p>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit">
+                    Login →
+                </button>
+
+            </form>
+
+
+            <p id="message"></p>
+
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="/register/">Register here</a>
+            </p>
+
+        </div>
 
     </div>
 
+
+    <!-- Footer -->
+    <footer>
+        © 2026 JobPortal. All Rights Reserved.
+    </footer>
+
+
+    <!-- Password Visibility -->
+    <script>
+        function togglePassword() {
+
+            const password = document.getElementById("password");
+            const button = document.querySelector(".toggle-password");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "HIDE";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "SHOW";
+
+            }
+
+        }
+    </script>
+
+
+    <!-- Existing Login JavaScript -->
     <script src="/static/js/login.js"></script>
 
 </body>

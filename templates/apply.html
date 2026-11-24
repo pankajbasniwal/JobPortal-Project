@@ -1,14 +1,193 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Apply for Job - JobPortal</title>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f3f5fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        nav {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        nav h2 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        nav div {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ddd6fe;
+        }
+
+        /* Main Container */
+        .register-container {
+            max-width: 520px;
+            margin: 65px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+            border: 1px solid #e5e7eb;
+        }
+
+        .register-container h1 {
+            text-align: center;
+            color: #3730a3;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .register-container > p {
+            text-align: center;
+            color: #6b7280;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        label {
+            color: #374151;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #a5b4fc;
+            border-radius: 10px;
+            background: #f5f3ff;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        input[type="file"]:hover {
+            border-color: #7c3aed;
+            background: #eef2ff;
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79,70,229,0.3);
+        }
+
+        /* Message */
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Back Link */
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .upload-icon {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav div {
+                gap: 18px;
+            }
+
+            .register-container {
+                margin: 30px 15px;
+                padding: 25px;
+            }
+
+            .register-container h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
+    <!-- Navbar -->
     <nav>
         <h2>JobPortal</h2>
+
         <div>
             <a href="/">Home</a>
             <a href="/jobs/">Jobs</a>
@@ -16,15 +195,18 @@
         </div>
     </nav>
 
+    <!-- Apply Form -->
     <div class="register-container">
+
+        <div class="upload-icon">📄</div>
 
         <h1>Apply for Job</h1>
 
-        <p>Upload your resume to apply for this opportunity.</p>
+        <p>Upload your resume and take the next step towards your dream career.</p>
 
         <form id="applyForm" data-job-id="{{ job_id }}">
 
-            <label>Select Resume (PDF)</label>
+            <label for="resume">Select Your Resume (PDF)</label>
 
             <input
                 type="file"
@@ -33,15 +215,17 @@
                 required
             >
 
-            <button type="submit">Submit Application</button>
+            <button type="submit">
+                Submit Application
+            </button>
 
         </form>
 
         <p id="message"></p>
 
-        <p>
-            <a href="/jobs/">Back to Jobs</a>
-        </p>
+        <div class="back-link">
+            <a href="/jobs/">← Back to Jobs</a>
+        </div>
 
     </div>
 

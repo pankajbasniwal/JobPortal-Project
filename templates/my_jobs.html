@@ -1,28 +1,334 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>My Jobs - JobPortal</title>
+
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f3f5fb;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+        }
+
+        nav h2 {
+            color: #4f46e5;
+            font-size: 27px;
+            font-weight: 800;
+        }
+
+        nav div {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4f46e5;
+        }
+
+        /* Page Container */
+        .page-container {
+            min-height: 100vh;
+            padding: 45px 20px;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        /* Page Heading */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            padding: 35px;
+            border-radius: 17px;
+            color: white;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(79,70,229,0.18);
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #e0e7ff;
+            font-size: 15px;
+        }
+
+        /* Jobs Section */
+        .jobs-heading {
+            margin-bottom: 22px;
+        }
+
+        .jobs-heading h2 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .jobs-heading p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Jobs Container */
+        #jobs-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        /* Job Cards */
+        .job-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e8eaf2;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+            border-color: #a5b4fc;
+            box-shadow: 0 12px 25px rgba(79,70,229,0.10);
+        }
+
+        .job-card h2,
+        .job-card h3 {
+            color: #1e293b;
+            font-size: 21px;
+            margin-bottom: 13px;
+        }
+
+        .job-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 9px;
+            overflow-wrap: anywhere;
+        }
+
+        .job-card strong {
+            color: #334155;
+        }
+
+        /* Job Type */
+        .job-type {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Action Buttons */
+        .job-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .job-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .edit-btn {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .edit-btn:hover {
+            background: #dbeafe;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+
+        /* Empty / Loading State */
+        .empty-state {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 45px 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: #64748b;
+            border: 1px solid #e8eaf2;
+        }
+
+        .empty-state h3 {
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .post-btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            text-decoration: none;
+            border-radius: 9px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 22px;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 750px) {
+            nav {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            nav div {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            #jobs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                padding: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
+    <!-- Navbar -->
     <nav>
+
         <h2>JobPortal</h2>
-        <a href="/">Home</a>
-        <a href="/recruiter-dashboard/">Dashboard</a>
-        <a href="/logout/">Logout</a>
+
+        <div>
+            <a href="/">Home</a>
+            <a href="/jobs/">Explore Jobs</a>
+            <a href="/recruiter-dashboard/">Dashboard</a>
+            <a href="/post-job/">Post Job</a>
+            <a href="/logout/">Logout</a>
+        </div>
+
     </nav>
 
-    <div class="container">
-        <h1>My Posted Jobs</h1>
-        <p>Manage the jobs you have posted.</p>
 
-        <div id="jobs-container">
-            Loading your jobs...
+    <!-- Main Page -->
+    <div class="page-container">
+
+        <div class="container">
+
+            <!-- Header -->
+            <div class="page-header">
+
+                <h1>💼 My Posted Jobs</h1>
+
+                <p>
+                    Manage your job postings, track opportunities
+                    and find the right candidates.
+                </p>
+
+            </div>
+
+
+            <!-- Jobs Heading -->
+            <div class="jobs-heading">
+
+                <h2>📋 Your Job Listings</h2>
+
+                <p>
+                    All the jobs you have posted on JobPortal.
+                </p>
+
+            </div>
+
+
+            <!-- Jobs List -->
+            <div id="jobs-container">
+
+                <div class="empty-state">
+                    Loading your jobs...
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 JobPortal. All Rights Reserved.</p>
+
+    </footer>
+
+
+    <!-- Existing JavaScript -->
     <script src="/static/js/my_jobs.js"></script>
 
 </body>
