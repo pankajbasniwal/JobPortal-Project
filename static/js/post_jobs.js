@@ -1,4 +1,3 @@
-
 document.getElementById("jobForm").addEventListener("submit", async function(event) {
 
     event.preventDefault();
@@ -16,6 +15,7 @@ document.getElementById("jobForm").addEventListener("submit", async function(eve
     const jobData = {
         title: document.getElementById("title").value,
         description: document.getElementById("description").value,
+        company_id :document.getElementById("company").value,
         skills_required: document.getElementById("skills_required").value,
         location: document.getElementById("location").value,
         salary: document.getElementById("salary").value || null,
