@@ -132,10 +132,19 @@ def my_jobs(request):
             status=status.HTTP_403_FORBIDDEN
         )
 
-    jobs = Job.objects.filter(
-        company__user=request.user
-    ).order_by('-posted_date')
+    try:
+        company = request.user.company
+    except Exception:
+        return Response(
+            {"error": "Company profile not found"},
+            status=status.HTTP_403_FORBIDDEN
+        )
 
+    jobs = Job.objects.filter(company=company).order_by('-posted_date')
     serializer = JobSerializer(jobs, many=True)
 
     return Response(serializer.data)
+from django.shortcuts import render
+
+def my_jobs_page(request):
+    return render(request, 'my_jobs.html')

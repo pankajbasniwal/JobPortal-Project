@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from jobs import views as job_views
 
 urlpatterns = [
     path('', include('frontend.urls')),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('api/', include('jobs.urls')),
     path('api/accounts/', include('accounts.urls')),
     path('api/applications/', include('applications.urls')),
+    path('my-jobs/', job_views.my_jobs_page, name='my_jobs_page'),
 ]
 
 if settings.DEBUG:
