@@ -26,3 +26,6 @@ def apply_page(request, job_id):
         'job_id': job_id
     })
 
+def recruiter_applications_page(request):
+    return render(request, 'recruiter_applications.html')
+

@@ -1,21 +1,23 @@
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.shortcuts import render
+
 from .models import Job
 from .serializers import JobSerializer
 
 
+# GET ALL JOBS AND POST A NEW JOB
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 def job_list(request):
 
     if request.method == 'GET':
-
         jobs = Job.objects.all()
         serializer = JobSerializer(jobs, many=True)
-
         return Response(serializer.data)
 
     if not request.user.is_authenticated:
@@ -41,9 +43,7 @@ def job_list(request):
     serializer = JobSerializer(data=request.data)
 
     if serializer.is_valid():
-
         serializer.save(company=company)
-
         return Response(
             serializer.data,
             status=status.HTTP_201_CREATED
@@ -55,7 +55,8 @@ def job_list(request):
     )
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+# GET, UPDATE AND DELETE A SINGLE JOB
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 @permission_classes([AllowAny])
 def job_detail(request, id):
 
@@ -69,7 +70,6 @@ def job_detail(request, id):
         )
 
     if request.method == 'GET':
-
         serializer = JobSerializer(job)
         return Response(serializer.data)
 
@@ -91,15 +91,18 @@ def job_detail(request, id):
             status=status.HTTP_403_FORBIDDEN
         )
 
-    if request.method == 'PUT':
+    # UPDATE JOB
+    if request.method in ['PUT', 'PATCH']:
+
+        partial = request.method == 'PATCH'
 
         serializer = JobSerializer(
             job,
-            data=request.data
+            data=request.data,
+            partial=partial
         )
 
         if serializer.is_valid():
-
             serializer.save(company=job.company)
             return Response(serializer.data)
 
@@ -108,14 +111,18 @@ def job_detail(request, id):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+    # DELETE JOB
     if request.method == 'DELETE':
 
         job.delete()
 
         return Response(
-            {"message": "Job deleted successfully"}
+            {"message": "Job deleted successfully"},
+            status=status.HTTP_200_OK
         )
 
+
+# SHOW JOBS POSTED BY LOGGED-IN RECRUITER
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def my_jobs(request):
@@ -140,11 +147,15 @@ def my_jobs(request):
             status=status.HTTP_403_FORBIDDEN
         )
 
-    jobs = Job.objects.filter(company=company).order_by('-posted_date')
+    jobs = Job.objects.filter(
+        company=company
+    ).order_by('-posted_date')
+
     serializer = JobSerializer(jobs, many=True)
 
     return Response(serializer.data)
-from django.shortcuts import render
 
+
+# DISPLAY MY JOBS HTML PAGE
 def my_jobs_page(request):
     return render(request, 'my_jobs.html')
